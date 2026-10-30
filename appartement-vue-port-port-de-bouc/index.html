@@ -58,7 +58,7 @@
   .marque-txt { display: flex; flex-direction: column; line-height: 1; font-family: var(--serif); }
   .marque-txt b { font-weight: 400; font-size: 1.1rem; letter-spacing: 0.28em; }
   .marque-txt i { margin-top: 5px; font-size: 0.72rem; opacity: 0.8; }
-  @media (max-width: 640px) { .marque-txt { display: none; } }
+  @media (max-width: 640px) { .marque { gap: 10px; } .mono { width: 38px; height: 27px; } .marque-txt b { font-size: .95rem; letter-spacing: .24em; } .marque-txt i { font-size: .66rem; } }
 
   /* Accueil immersif */
   .immersive { position: relative; height: 700svh; background: var(--noir); }
@@ -278,10 +278,15 @@
     var w = img.naturalWidth * s, h = img.naturalHeight * s;
     c.drawImage(img, (cw - w) / 2, (ch - h) / 2, w, h);
   }
+  /* Mode cadre : vidéo portrait sur écran large, ou vidéo paysage sur téléphone tenu droit.
+     L'image garde à peu près sa taille réelle (donc sa netteté) et la scène reste entière,
+     sur un fond flou de la même image. */
   function framedDraw(img, cw, ch) {
     ctx.clearRect(0, 0, cw, ch);
     ctx.imageSmoothingQuality = "high";
-    var h = ch * (0.8 + 0.2 * prog), w = h * img.naturalWidth / img.naturalHeight;
+    var ar = img.naturalWidth / img.naturalHeight, w, h;
+    if (cw / ch < ar) { w = cw * (1.4 + 0.3 * prog); h = w / ar; }  // paysage sur écran haut
+    else { h = ch * (0.8 + 0.2 * prog); w = h * ar; }                // portrait sur écran large
     var x = (cw - w) / 2, y = (ch - h) / 2;
     ctx.drawImage(img, x, y, w, h);
     var over = 28 * dpr * (1 - prog);
@@ -305,7 +310,8 @@
     var idx = nearest(target);
     if (idx !== -1) {
       var img = frames[idx], cw = canvas.width, ch = canvas.height;
-      var framed = cw / ch > (img.naturalWidth / img.naturalHeight) * 1.25;
+      var ratio = (cw / ch) / (img.naturalWidth / img.naturalHeight);
+      var framed = ratio > 1.25 || ratio < 0.5;
       var key = framed ? idx + ":" + prog.toFixed(3) : String(idx);
       if (key !== drawn) {
         if (framed) { framedDraw(img, cw, ch); cover(fctx, img, fond.width, fond.height); }
