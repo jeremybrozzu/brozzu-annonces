@@ -9,8 +9,8 @@ export function SiteHeader() {
           className="block h-8 w-[46px] bg-ivoire"
           style={{ mask: "url(/brand/monogramme-brozzu.png) center / contain no-repeat" }}
         />
-        <span className="hidden flex-col leading-none text-ivoire sm:flex">
-          <span className="font-serif text-lg tracking-[0.28em]">BROZZU</span>
+        <span className="flex flex-col leading-none text-ivoire">
+          <span className="font-serif text-[0.95rem] tracking-[0.24em] sm:text-lg sm:tracking-[0.28em]">BROZZU</span>
           <span className="mt-1 font-serif text-[0.7rem] italic tracking-wide opacity-80">L&apos;Atelier Immo</span>
         </span>
       </a>

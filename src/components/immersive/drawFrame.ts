@@ -10,8 +10,13 @@
 /** Écart de format à partir duquel on passe en mode cadre. */
 const FRAMED_RATIO = 1.25;
 
+/**
+ * Mode cadre dans les deux sens : vidéo portrait sur écran large, ou vidéo paysage sur
+ * téléphone tenu droit (sinon recadrée à un tiers de sa largeur et agrandie près de 3 fois).
+ */
 export function isFramed(cw: number, ch: number, iw: number, ih: number) {
-  return cw / ch > (iw / ih) * FRAMED_RATIO;
+  const ratio = cw / ch / (iw / ih);
+  return ratio > FRAMED_RATIO || ratio < 0.5;
 }
 
 export function drawCover(ctx: CanvasRenderingContext2D, img: HTMLImageElement, cw: number, ch: number) {
@@ -39,8 +44,11 @@ export function drawFramed(
   ctx.clearRect(0, 0, cw, ch);
   ctx.imageSmoothingQuality = "high";
 
-  const h = ch * (0.8 + 0.2 * progress);
-  const w = h * (img.naturalWidth / img.naturalHeight);
+  const ar = img.naturalWidth / img.naturalHeight;
+  // Paysage sur écran haut : le cadre déborde un peu sur les côtés, à taille réelle.
+  const paysage = cw / ch < ar;
+  const w = paysage ? cw * (1.4 + 0.3 * progress) : ch * (0.8 + 0.2 * progress) * ar;
+  const h = w / ar;
   const x = (cw - w) / 2, y = (ch - h) / 2;
   ctx.drawImage(img, x, y, w, h);
 
