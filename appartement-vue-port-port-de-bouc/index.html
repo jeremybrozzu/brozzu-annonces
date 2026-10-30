@@ -311,7 +311,7 @@
     if (idx !== -1) {
       var img = frames[idx], cw = canvas.width, ch = canvas.height;
       var ratio = (cw / ch) / (img.naturalWidth / img.naturalHeight);
-      var framed = ratio > 1.25 || ratio < 0.5;
+      var framed = ratio > 1.25;  // téléphone : plein écran, à la demande de l'agence
       var key = framed ? idx + ":" + prog.toFixed(3) : String(idx);
       if (key !== drawn) {
         if (framed) { framedDraw(img, cw, ch); cover(fctx, img, fond.width, fond.height); }
