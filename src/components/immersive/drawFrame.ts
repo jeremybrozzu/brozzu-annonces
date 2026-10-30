@@ -16,7 +16,8 @@ const FRAMED_RATIO = 1.25;
  */
 export function isFramed(cw: number, ch: number, iw: number, ih: number) {
   const ratio = cw / ch / (iw / ih);
-  return ratio > FRAMED_RATIO || ratio < 0.5;
+  // Téléphone : plein écran, à la demande de l'agence (le cadre ne sert qu'au portrait sur écran large).
+  return ratio > FRAMED_RATIO;
 }
 
 export function drawCover(ctx: CanvasRenderingContext2D, img: HTMLImageElement, cw: number, ch: number) {
