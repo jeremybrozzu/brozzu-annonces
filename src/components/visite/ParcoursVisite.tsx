@@ -38,6 +38,8 @@ export function ParcoursVisite({
   agenda,
   conseiller,
   envoiDirect,
+  pointReception,
+  conseillerId,
   apercu = false,
 }: {
   bien: string;
@@ -46,8 +48,12 @@ export function ParcoursVisite({
   agenda?: string;
   /** Nom du conseiller, affiché à l'acquéreur. */
   conseiller?: string;
-  /** Hébergement statique : adresse e-mail à laquelle FormSubmit relaie la fiche. */
+  /** Hébergement statique : adresse e-mail à laquelle FormSubmit relaie la fiche (secours). */
   envoiDirect?: string;
+  /** Hébergement statique : application Web Google Apps Script qui reçoit la fiche (apps-script/Code.gs). */
+  pointReception?: string;
+  /** Identifiant du négociateur, traduit en adresse e-mail par l'Apps Script. */
+  conseillerId?: string;
   apercu?: boolean;
 }) {
   const [ouvert, setOuvert] = useState(false);
@@ -215,9 +221,15 @@ export function ParcoursVisite({
       if (apercu) {
         await new Promise((r) => setTimeout(r, 700));
         reference = "APERÇU";
-      } else if (envoiDirect) {
+      } else if (pointReception || envoiDirect) {
         reference = (referenceDirecte.current ??= nouvelleReference());
-        await envoyerParFormSubmit(envoiDirect, valide.data, titreBien, reference, siteWeb);
+        await envoyerDirect(
+          { pointReception, conseillerId, email: envoiDirect },
+          valide.data,
+          titreBien,
+          reference,
+          siteWeb,
+        );
       } else {
         const r = await fetch("/api/demandes", {
           method: "POST",
@@ -550,8 +562,38 @@ function nouvelleReference() {
   return `BRZ-${String(d.getFullYear()).slice(2)}${String(d.getMonth() + 1).padStart(2, "0")}-${suffixe}`;
 }
 
-/** Même service que l'application d'estimation : FormSubmit relaie la fiche par e-mail. */
-async function envoyerParFormSubmit(email: string, d: Demande, titreBien: string, reference: string, piege: string) {
+/**
+ * Envoi depuis une page statique, comme l'application d'estimation :
+ * d'abord l'Apps Script (e-mail au négociateur + copie à l'agence + feuille Google Sheets),
+ * puis FormSubmit en secours s'il ne répond pas.
+ */
+async function envoyerDirect(
+  cible: { pointReception?: string; conseillerId?: string; email?: string },
+  d: Demande,
+  titreBien: string,
+  reference: string,
+  piege: string,
+) {
+  const champs = champsFiche(d, titreBien, reference, piege);
+  if (cible.pointReception) {
+    try {
+      // Corps en texte brut : pas de requête préalable CORS, comme pour l'estimation.
+      const r = await fetch(cible.pointReception, {
+        method: "POST",
+        body: JSON.stringify({ ...champs, _source: "brozzu-annonces", _conseiller: cible.conseillerId ?? "" }),
+      });
+      const corps = await r.json().catch(() => ({}));
+      if (String(corps.success) === "true") return;
+      console.warn("[Apps Script]", r.status, corps);
+    } catch (err) {
+      console.warn("[Apps Script]", err);
+    }
+  }
+  if (cible.email) return envoyerParFormSubmit(cible.email, champs);
+  throw new Error("La demande n'a pas pu être envoyée. Réessayez dans un instant ou appelez-nous directement.");
+}
+
+function champsFiche(d: Demande, titreBien: string, reference: string, piege: string) {
   const champs: Record<string, string> = {
     _subject: `Nouvelle demande de visite — ${titreBien} — ${d.prenom} ${d.nom}`,
     _template: "table",
@@ -563,7 +605,11 @@ async function envoyerParFormSubmit(email: string, d: Demande, titreBien: string
     "Référence": reference,
   };
   for (const [, lignes] of sections(d)) for (const [k, v] of lignes) if (v) champs[k] = v;
+  return champs;
+}
 
+/** Secours : FormSubmit relaie la fiche par e-mail. */
+async function envoyerParFormSubmit(email: string, champs: Record<string, string>) {
   let r: Response;
   try {
     r = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(email)}`, {
