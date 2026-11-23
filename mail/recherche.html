@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Votre recherche – BROZZU L’atelier Immo</title>
+<meta name="description" content="Dites-nous ce que vous cherchez à Martigues, Port-de-Bouc et alentours : BROZZU L’atelier Immo vous recontacte avec les biens qui vous correspondent.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="https://jeremybrozzu.github.io/brozzu-annonces/appartement-vue-port-port-de-bouc/brand/monogramme-brozzu.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --creme: #F6F0E7; --brun: #7B4225; --chair: #E9C9AE; --ocre: #C68A4E; --profond: #2E221C;
+    --texte: #4A3B32; --doux: #8A7668; --blanc: #FFFFFF; --erreur: #A3341F;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--creme); color: var(--texte); font-family: Montserrat, Helvetica, Arial, sans-serif; font-size: 15px; line-height: 1.55; }
+  .hero { position: relative; height: 240px; background: url('https://jeremybrozzu.github.io/brozzu-annonces/mail/photo-agence-brozzu.jpg') center 30% / cover no-repeat; }
+  .hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(246,240,231,0) 35%, var(--creme) 100%); }
+  .wrap { max-width: 640px; margin: -70px auto 0; padding: 0 16px 56px; position: relative; z-index: 1; }
+  .carte { background: var(--blanc); border: 1px solid var(--chair); border-radius: 4px; padding: 36px 32px 32px; }
+  .entete { text-align: center; }
+  .entete img { width: 86px; height: auto; display: block; margin: 0 auto; }
+  .marque { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 600; font-size: 26px; letter-spacing: 6px; color: var(--profond); margin-top: 2px; }
+  .atelier { font-size: 10.5px; letter-spacing: 3px; text-transform: uppercase; color: var(--brun); font-weight: 600; }
+  .trait { width: 56px; height: 1px; background: var(--ocre); margin: 22px auto; }
+  h1 { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-size: 34px; line-height: 1.1; color: var(--profond); text-align: center; margin: 0 0 12px; }
+  h1 em { color: var(--brun); }
+  .intro { text-align: center; color: var(--doux); font-size: 14px; margin: 0 auto 8px; max-width: 460px; }
+  fieldset { border: 0; margin: 0; padding: 0; }
+  .bloc { margin-top: 30px; }
+  .bloc-titre { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 22px; color: var(--brun); margin: 0 0 4px; display: flex; align-items: baseline; gap: 10px; }
+  .bloc-titre span { font-size: 15px; font-weight: 600; }
+  .champ { margin-top: 16px; }
+  label.lib, legend.lib { display: block; font-weight: 600; color: var(--profond); font-size: 14px; margin-bottom: 7px; padding: 0; }
+  .opt { color: var(--doux); font-weight: 400; font-size: 12px; }
+  .req { color: var(--brun); }
+  input[type=text], input[type=tel], input[type=email], textarea {
+    width: 100%; font: inherit; color: var(--profond); background: var(--creme); border: 1px solid transparent; border-bottom: 1px solid var(--chair);
+    border-radius: 3px; padding: 12px 14px; outline: none; transition: border-color .2s, background .2s;
+  }
+  input:focus, textarea:focus { background: var(--blanc); border-color: var(--ocre); }
+  textarea { min-height: 96px; resize: vertical; }
+  .duo { display: grid; grid-template-columns: 1fr 1fr; gap: 0 14px; }
+  .suffixe { position: relative; }
+  .suffixe input { padding-right: 40px; }
+  .suffixe b { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); font-weight: 500; color: var(--doux); pointer-events: none; }
+  .puces { display: flex; flex-wrap: wrap; gap: 8px; }
+  .puce { position: relative; }
+  .puce input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .puce span { display: inline-block; padding: 9px 15px; border: 1px solid var(--chair); border-radius: 30px; font-size: 13.5px; cursor: pointer; background: var(--blanc); transition: all .2s; user-select: none; }
+  .puce span:hover { border-color: var(--ocre); }
+  .puce input:checked + span { background: var(--brun); border-color: var(--brun); color: var(--blanc); }
+  .puce input:focus-visible + span { outline: 2px solid var(--ocre); outline-offset: 2px; }
+  .accord { display: flex; gap: 12px; align-items: flex-start; font-size: 12.5px; color: var(--texte); background: var(--creme); padding: 14px 16px; border-radius: 3px; cursor: pointer; }
+  .accord input { margin-top: 3px; accent-color: var(--brun); width: 16px; height: 16px; flex: none; }
+  .erreur { display: none; color: var(--erreur); font-size: 12.5px; margin-top: 6px; }
+  .champ.invalide .erreur { display: block; }
+  .champ.invalide input[type=text], .champ.invalide input[type=tel] { border-bottom-color: var(--erreur); }
+  button { margin-top: 30px; width: 100%; font: inherit; font-weight: 600; font-size: 15px; letter-spacing: .5px; color: var(--blanc); background: var(--brun); border: 0; border-radius: 4px; padding: 17px 20px; cursor: pointer; transition: background .25s, transform .25s; }
+  button:hover { background: var(--profond); transform: translateY(-1px); }
+  button[disabled] { opacity: .6; cursor: wait; transform: none; }
+  .merci { display: none; text-align: center; padding: 8px 0 4px; }
+  .merci h2 { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-size: 32px; color: var(--profond); margin: 6px 0 10px; }
+  .merci p { margin: 0 auto 14px; max-width: 440px; }
+  .merci a { color: var(--brun); font-weight: 600; text-decoration: none; }
+  .envoye form { display: none; }
+  .envoye .merci { display: block; }
+  footer { text-align: center; font-size: 12px; color: var(--doux); margin-top: 22px; line-height: 1.8; }
+  footer a { color: var(--brun); text-decoration: none; font-weight: 600; }
+  @media (max-width: 520px) {
+    .hero { height: 180px; }
+    .wrap { margin-top: -50px; }
+    .carte { padding: 28px 20px 24px; }
+    h1 { font-size: 29px; }
+    .duo { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="hero" role="img" aria-label="La vitrine de l’agence BROZZU L’atelier Immo"></div>
+<main class="wrap">
+  <div class="carte" id="carte">
+    <div class="entete">
+      <a href="https://www.brozzu.fr/"><img src="https://jeremybrozzu.github.io/brozzu-annonces/appartement-vue-port-port-de-bouc/brand/monogramme-brozzu.png" alt="BROZZU"></a>
+      <div class="marque">BROZZU</div>
+      <div class="atelier">L’atelier Immo</div>
+      <div class="trait"></div>
+    </div>
+
+    <form id="form" action="https://docs.google.com/forms/d/e/1FAIpQLSeFC3JX_AYA5fWxR_syENjCRh-j-xFwoBSDHIkLs7TBCEYnRg/formResponse" method="POST" target="envoi" novalidate>
+      <h1>Votre <em>recherche</em>,<br>en quelques clics.</h1>
+      <p class="intro">Dites-nous ce que vous cherchez à Martigues, Port-de-Bouc et alentours. Nous vous recontactons rapidement avec les biens qui vous correspondent, parfois avant leur mise en ligne.</p>
+
+      <div class="bloc">
+        <h2 class="bloc-titre"><span>01</span>Vous</h2>
+        <div class="champ" data-requis>
+          <label class="lib" for="nom">Nom et prénom <span class="req">*</span></label>
+          <input type="text" id="nom" name="entry.1874760002" autocomplete="name" required>
+          <div class="erreur">Merci d’indiquer votre nom.</div>
+        </div>
+        <div class="duo">
+          <div class="champ" data-requis>
+            <label class="lib" for="tel">Téléphone <span class="req">*</span></label>
+            <input type="tel" id="tel" name="entry.1657411841" autocomplete="tel" inputmode="tel" required>
+            <div class="erreur">Merci d’indiquer un numéro valide.</div>
+          </div>
+          <div class="champ">
+            <label class="lib" for="mail">E-mail <span class="opt">(facultatif)</span></label>
+            <input type="email" id="mail" name="entry.2013775654" autocomplete="email" inputmode="email">
+          </div>
+        </div>
+      </div>
+
+      <div class="bloc">
+        <h2 class="bloc-titre"><span>02</span>Le bien</h2>
+        <fieldset class="champ" data-groupe="entry.1177997781">
+          <legend class="lib">Type de bien <span class="req">*</span></legend>
+          <div class="puces">
+            <label class="puce"><input type="checkbox" name="entry.1177997781" value="Appartement"><span>Appartement</span></label>
+            <label class="puce"><input type="checkbox" name="entry.1177997781" value="Maison / villa"><span>Maison / villa</span></label>
+            <label class="puce"><input type="checkbox" name="entry.1177997781" value="Terrain"><span>Terrain</span></label>
+            <label class="puce"><input type="checkbox" name="entry.1177997781" value="Immeuble / investissement locatif"><span>Immeuble / investissement</span></label>
+          </div>
+          <div class="erreur">Choisissez au moins un type de bien.</div>
+        </fieldset>
+        <div class="champ" data-requis>
+          <label class="lib" for="secteur">Ville(s) ou secteur(s) <span class="req">*</span></label>
+          <input type="text" id="secteur" name="entry.1344943546" placeholder="Ex. : Martigues, Port-de-Bouc, Saint-Mitre…" required>
+          <div class="erreur">Indiquez au moins une ville.</div>
+        </div>
+        <div class="duo">
+          <div class="champ" data-requis>
+            <label class="lib" for="budget">Budget maximum <span class="req">*</span></label>
+            <div class="suffixe"><input type="text" id="budget" name="entry.1650468094" inputmode="numeric" placeholder="250 000" required><b>€</b></div>
+            <div class="erreur">Indiquez votre budget.</div>
+          </div>
+          <div class="champ">
+            <label class="lib" for="surface">Surface minimum <span class="opt">(facultatif)</span></label>
+            <div class="suffixe"><input type="text" id="surface" name="entry.953821666" inputmode="numeric" placeholder="80"><b>m²</b></div>
+          </div>
+        </div>
+        <fieldset class="champ" data-groupe="entry.882625950">
+          <legend class="lib">Chambres minimum <span class="req">*</span></legend>
+          <div class="puces">
+            <label class="puce"><input type="radio" name="entry.882625950" value="1"><span>1</span></label>
+            <label class="puce"><input type="radio" name="entry.882625950" value="2"><span>2</span></label>
+            <label class="puce"><input type="radio" name="entry.882625950" value="3"><span>3</span></label>
+            <label class="puce"><input type="radio" name="entry.882625950" value="4 et plus"><span>4 et plus</span></label>
+          </div>
+          <div class="erreur">Choisissez un nombre de chambres.</div>
+        </fieldset>
+        <fieldset class="champ">
+          <legend class="lib">Indispensable pour vous <span class="opt">(facultatif)</span></legend>
+          <div class="puces">
+            <label class="puce"><input type="checkbox" name="entry.1138235076" value="Extérieur (jardin, terrasse ou balcon)"><span>Extérieur</span></label>
+            <label class="puce"><input type="checkbox" name="entry.1138235076" value="Garage ou parking"><span>Garage ou parking</span></label>
+            <label class="puce"><input type="checkbox" name="entry.1138235076" value="Piscine"><span>Piscine</span></label>
+            <label class="puce"><input type="checkbox" name="entry.1138235076" value="Plain-pied"><span>Plain-pied</span></label>
+            <label class="puce"><input type="checkbox" name="entry.1138235076" value="Ascenseur"><span>Ascenseur</span></label>
+            <label class="puce"><input type="checkbox" name="entry.1138235076" value="Vue dégagée"><span>Vue dégagée</span></label>
+            <label class="puce"><input type="checkbox" name="entry.1138235076" value="Sans travaux"><span>Sans travaux</span></label>
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="bloc">
+        <h2 class="bloc-titre"><span>03</span>Votre projet</h2>
+        <fieldset class="champ" data-groupe="entry.694095174">
+          <legend class="lib">Où en est votre financement ? <span class="req">*</span></legend>
+          <div class="puces">
+            <label class="puce"><input type="radio" name="entry.694095174" value="Achat comptant"><span>Achat comptant</span></label>
+            <label class="puce"><input type="radio" name="entry.694095174" value="Accord de prêt obtenu"><span>Accord de prêt obtenu</span></label>
+            <label class="puce"><input type="radio" name="entry.694095174" value="Démarches en cours avec ma banque ou un courtier"><span>Démarches en cours</span></label>
+            <label class="puce"><input type="radio" name="entry.694095174" value="Pas encore commencé"><span>Pas encore commencé</span></label>
+          </div>
+          <div class="erreur">Choisissez une réponse.</div>
+        </fieldset>
+        <fieldset class="champ" data-groupe="entry.737445130">
+          <legend class="lib">Quand souhaitez-vous acheter ? <span class="req">*</span></legend>
+          <div class="puces">
+            <label class="puce"><input type="radio" name="entry.737445130" value="Dès que possible"><span>Dès que possible</span></label>
+            <label class="puce"><input type="radio" name="entry.737445130" value="Dans les 3 mois"><span>Dans les 3 mois</span></label>
+            <label class="puce"><input type="radio" name="entry.737445130" value="Dans les 6 mois"><span>Dans les 6 mois</span></label>
+            <label class="puce"><input type="radio" name="entry.737445130" value="Plus tard, je me renseigne"><span>Plus tard</span></label>
+          </div>
+          <div class="erreur">Choisissez une réponse.</div>
+        </fieldset>
+        <div class="champ">
+          <label class="lib" for="precisions">D’autres précisions ? <span class="opt">(facultatif)</span></label>
+          <textarea id="precisions" name="entry.1682906250" placeholder="Quartier, étage, vue, école à proximité…"></textarea>
+        </div>
+        <div class="champ" data-groupe="entry.350796985">
+          <label class="accord"><input type="checkbox" name="entry.350796985" value="J’accepte que BROZZU L’atelier Immo me recontacte au sujet de ma recherche et m’envoie des biens correspondants. Je peux demander à tout moment la suppression de mes données à contact@brozzu.fr."><span>J’accepte que BROZZU L’atelier Immo me recontacte au sujet de ma recherche et m’envoie des biens correspondants. Je peux demander à tout moment la suppression de mes données à contact@brozzu.fr.</span></label>
+          <div class="erreur">Votre accord est nécessaire pour que nous puissions vous recontacter.</div>
+        </div>
+      </div>
+
+      <button type="submit" id="envoyer">Envoyer ma recherche</button>
+    </form>
+
+    <div class="merci" role="status">
+      <div class="trait"></div>
+      <h2>Merci, c’est bien reçu.</h2>
+      <p>Nous étudions votre recherche et revenons vers vous très vite, avec des biens qui vous ressemblent.</p>
+      <p><a href="https://www.brozzu.fr/vente/1">Voir nos biens en vente →</a></p>
+    </div>
+  </div>
+  <footer>
+    BROZZU – L’atelier Immo · Martigues · Port-de-Bouc et alentours<br>
+    <a href="https://www.brozzu.fr/">www.brozzu.fr</a> · <a href="mailto:contact@brozzu.fr">contact@brozzu.fr</a> · <a href="tel:+33628514416">06 28 51 44 16</a>
+  </footer>
+</main>
+<iframe name="envoi" id="envoi" title="envoi" style="display:none"></iframe>
+<script>
+(function () {
+  var form = document.getElementById('form');
+  var bouton = document.getElementById('envoyer');
+  var iframe = document.getElementById('envoi');
+  var envoye = false;
+
+  function valide(champ) {
+    var ok = true;
+    var groupe = champ.getAttribute('data-groupe');
+    if (groupe) {
+      ok = form.querySelectorAll('[name="' + groupe + '"]:checked').length > 0;
+    } else {
+      var input = champ.querySelector('input, textarea');
+      var v = input.value.trim();
+      ok = v.length > 0;
+      if (ok && input.type === 'tel') ok = v.replace(/\D/g, '').length >= 9;
+    }
+    champ.classList.toggle('invalide', !ok);
+    return ok;
+  }
+
+  form.addEventListener('change', function (e) {
+    var champ = e.target.closest('.champ');
+    if (champ && champ.classList.contains('invalide')) valide(champ);
+  });
+
+  form.addEventListener('submit', function (e) {
+    var champs = form.querySelectorAll('[data-requis], [data-groupe]');
+    var premier = null;
+    champs.forEach(function (c) { if (!valide(c) && !premier) premier = c; });
+    if (premier) {
+      e.preventDefault();
+      premier.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+    envoye = true;
+    bouton.disabled = true;
+    bouton.textContent = 'Envoi en cours…';
+  });
+
+  iframe.addEventListener('load', function () {
+    if (!envoye) return;
+    document.getElementById('carte').classList.add('envoye');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
+</script>
+</body>
+</html>
